@@ -5,11 +5,13 @@ import {
   Image,
 } from 'react-native';
 import { fetching } from '../../domain/actions/github';
+import I18n from '../../locales/i18n';
+import CustomRow from '../../ultis/CustomRow';
 
 
 class Home extends Component {
   static navigationOptions = {
-    title: 'Home',
+    title: I18n.t('Home'),
   };
 
   constructor(props) {
@@ -51,9 +53,9 @@ class Home extends Component {
             style={styles.containerText}
             underlayColor="#fff"
             onPress={() => {
-              this.props.searchUser(this.state.textSearch)
-              this.setState({isRefresh: false})
-              }}>
+              this.props.searchUser(this.state.textSearch);
+              this.setState({ isRefresh: false });
+            }}>
             <Text style={styles.text}> Search User </Text>
           </TouchableHighlight>
           <View style={{ width: '100%', flex: 1 }}>
@@ -65,10 +67,10 @@ class Home extends Component {
                 extraData={this.state}
                 renderItem={({ item }) => this.renderItemFlatList(item)}
                 keyExtractor={(item, index) => index.toString()}
-                onRefresh={() => { 
-                  this.props.searchUser(this.state.textSearch)
-                  this.setState({isRefresh: true})
-                 }}
+                onRefresh={() => {
+                  this.props.searchUser(this.state.textSearch);
+                  this.setState({ isRefresh: true });
+                }}
                 refreshing={this.props.github.isFetching}
               /> : this.renderEmptyData()
             }
@@ -92,21 +94,28 @@ class Home extends Component {
         underlayColor="#fff"
         onPress={() => this.onItemClick(item)}
       >
-        <View style={{ flex: 1 }}>
+        <CustomRow
+          name={item.login}
+          imageUrl={item.avatarUrl}
+        />
+        {/* <View style={{ flex: 1 }}>
           <View style={styles.itemFlatContainer}>
-            <Image source={{ uri: item.avatarUrl }} style={{ width: 50, height: 50, borderRadius: 50 / 2 }} />
-            <Text style={{ marginStart: 10, alignSelf: 'center', fontSize: 17 }}> {item.login}</Text>
+            <Image source={{ uri: item.avatarUrl }}
+              style={{ width: 50, height: 50, borderRadius: 50 / 2 }} />
+            <Text style={{ marginStart: 10, alignSelf: 'center', fontSize: 17 }}>
+            {item.login}
+            </Text>
           </View>
           <View style={{ backgroundColor: '#9b9b9b', width: '100%', height: 0.5 }} />
-        </View>
+        </View> */}
       </TouchableHighlight>
     );
   }
 
   onItemClick(item) {
     this.props.navigation.navigate('UserDetail', {
-      item: item
-    })
+      item,
+    });
   }
 
 
