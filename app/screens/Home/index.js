@@ -5,6 +5,7 @@ import {
   Image,
 } from 'react-native';
 import { fetching } from '../../domain/actions/github';
+import CustomRow from '../../utils/CustomRow';
 
 
 class Home extends Component {
@@ -92,13 +93,18 @@ class Home extends Component {
         underlayColor="#fff"
         onPress={() => this.onItemClick(item)}
       >
-        <View style={{ flex: 1 }}>
+      <CustomRow 
+        name={item.login}
+        imageUrl = {item.avatarUrl}
+      />
+
+        {/* <View style={{ flex: 1 }}>
           <View style={styles.itemFlatContainer}>
             <Image source={{ uri: item.avatarUrl }} style={{ width: 50, height: 50, borderRadius: 50 / 2 }} />
             <Text style={{ marginStart: 10, alignSelf: 'center', fontSize: 17 }}> {item.login}</Text>
           </View>
           <View style={{ backgroundColor: '#9b9b9b', width: '100%', height: 0.5 }} />
-        </View>
+        </View> */}
       </TouchableHighlight>
     );
   }
@@ -156,6 +162,10 @@ const styles = StyleSheet.create({
     margin: 10,
     justifyContent: 'flex-start',
     flexDirection: 'row',
+  },
+  title: {
+    fontSize: 20,
+    color: '#000',
   },
 });
 
